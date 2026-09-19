@@ -624,7 +624,7 @@ For a true independent reproducibility test, another user should:
 A new Linux user should be able to reproduce the project with:
 
 ```bash
-git clone <PUBLIC_GITHUB_REPOSITORY_URL>
+git clone <https://github.com/SachidaPokhrel/Replicability>
 
 cd Week5_BIOL7800
 
@@ -649,12 +649,10 @@ DATA_SOURCES.md
 setup_and_run.sh
 run.sh
 verify.sh
-prepare_box.sh
 
 environment.yml
 environment.resolved.yml
 
-GITHUB_REPO.txt
 CHECKSUMS.txt
 
 outputs/
@@ -677,7 +675,6 @@ metadata/
 .miniforge/
 .bootstrap/
 
-box_submission/
 ```
 
 The `outputs/` directory should remain available for the scientific outputs required by the assignment.
