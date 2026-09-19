@@ -1,0 +1,10 @@
+field value
+organism  Bacillus subtilis BEST3145
+assembly_accession  GCA_019704475.1
+nucleotide_accession  AP024628.1
+biosample SAMD00163116
+illumina_run  DRR172337
+subset_rule first 300000 SRA spots
+reference_file  input/reference.fasta
+read1_file  input/reads_R1.fastq
+read2_file  input/reads_R2.fastq

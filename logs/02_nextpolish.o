@@ -1,0 +1,14 @@
+======================================================================
+Step:       02_nextpolish
+Started:    2026-09-19T17:32:50Z
+Host:       asaxlogin2
+Project:    /scratch/aubsxp001/Week5_BIOL7800
+Threads:    4
+======================================================================
+
+Polished assembly already exists:
+/scratch/aubsxp001/Week5_BIOL7800/outputs/polished.fasta
+Skipping NextPolish.
+
+Finished: 2026-09-19T17:32:50Z
+Exit_code: 0

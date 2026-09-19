@@ -1,0 +1,29 @@
+======================================================================
+Step:       00_fetch_data
+Started:    2026-09-19T17:32:32Z
+Host:       asaxlogin2
+Project:    /scratch/aubsxp001/Week5_BIOL7800
+Threads:    4
+======================================================================
+
+Assembly accession : GCA_019704475.1
+Chromosome         : AP024628.1
+BioSample          : SAMD00163116
+Illumina run       : DRR172337
+Spots requested    : 300000
+
+Reference already exists:
+/scratch/aubsxp001/Week5_BIOL7800/input/reference.fasta
+Skipping reference download.
+
+Reference FASTA header:
+>AP024628.1 Bacillus subtilis BEST3145 DNA, complete genome
+
+FASTQ files already exist.
+Skipping SRA extraction.
+
+R1_records=300000
+R2_records=300000
+
+Finished: 2026-09-19T17:32:33Z
+Exit_code: 0

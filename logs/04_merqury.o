@@ -1,0 +1,115 @@
+======================================================================
+Step:       04_merqury
+Started:    2026-09-19T17:33:06Z
+Host:       asaxlogin2
+Project:    /scratch/aubsxp001/Week5_BIOL7800
+Threads:    4
+======================================================================
+
+Building Meryl database...
+k-mer size: 21
+
+
+Found 1 command tree.
+
+Counting 362 (estimated) million canonical 21-mers from 2 input files:
+    sequence-file: /scratch/aubsxp001/Week5_BIOL7800/input/reads_R1.fastq
+    sequence-file: /scratch/aubsxp001/Week5_BIOL7800/input/reads_R2.fastq
+
+
+SIMPLE MODE
+-----------
+
+  21-mers
+    -> 4398046511104 entries for counts up to 65535.
+    -> 64 Tbits memory used
+
+  379650408 input bases
+    -> expected max count of 1518601, needing 6 extra bits.
+    -> 24 Tbits memory used
+
+  11 TB memory needed
+
+
+COMPLEX MODE
+------------
+
+prefix     # of   struct   kmers/    segs/      min     data    total
+  bits   prefix   memory   prefix   prefix   memory   memory   memory
+------  -------  -------  -------  -------  -------  -------  -------
+     1     2  P  1862 kB    90 MM   116 kS  8192  B   928 MB   929 MB
+     2     4  P  1823 kB    45 MM    56 kS    16 kB   905 MB   907 MB
+     3     8  P  1790 kB    22 MM    27 kS    32 kB   882 MB   884 MB
+     4    16  P  1771 kB    11 MM    13 kS    64 kB   860 MB   861 MB
+     5    32  P  1776 kB  5793 kM  6703  S   128 kB   837 MB   839 MB
+     6    64  P  1832 kB  2896 kM  3260  S   256 kB   815 MB   816 MB
+     7   128  P  1989 kB  1448 kM  1585  S   512 kB   792 MB   794 MB
+     8   256  P  2348 kB   724 kM   770  S  1024 kB   770 MB   772 MB
+     9   512  P  3112 kB   362 kM   374  S  2048 kB   748 MB   751 MB
+    10  1024  P  4688 kB   181 kM   182  S  4096 kB   728 MB   732 MB  Best Value!
+    11  2048  P  7872 kB    90 kM    88  S  8192 kB   704 MB   711 MB
+    12  4096  P    13 MB    45 kM    43  S    16 MB   688 MB   701 MB
+    13  8192  P    26 MB    22 kM    21  S    32 MB   672 MB   698 MB
+    14    16 kP    51 MB    11 kM    10  S    64 MB   640 MB   691 MB
+    15    32 kP   102 MB  5794  M     5  S   128 MB   640 MB   742 MB
+    16    64 kP   203 MB  2897  M     3  S   256 MB   768 MB   971 MB
+    17   128 kP   406 MB  1449  M     2  S   512 MB  1024 MB  1430 MB
+    18   256 kP   810 MB   725  M     1  S  1024 MB  1024 MB  1834 MB
+    19   512 kP  1620 MB   363  M     1  S  2048 MB  2048 MB  3668 MB
+    20  1024 kP  3240 MB   182  M     1  S  4096 MB  4096 MB  7336 MB
+    21  2048 kP  6480 MB    91  M     1  S  8192 MB  8192 MB    14 GB
+    22  4096 kP    12 GB    46  M     1  S    16 GB    16 GB    28 GB
+
+
+FINAL CONFIGURATION
+-------------------
+
+Estimated to require 1457 MB memory out of 61 GB allowed.
+Estimated to require 2 batches.
+
+Configured complex mode for 1.424 GB memory per batch, and up to 2 batches.
+
+Start counting with THREADED method.
+Used 0.270 GB / 61.196 GB to store      1939975 kmers; need 0.014 GB to sort       118928 kmers
+Used 0.357 GB / 61.196 GB to store     25202546 kmers; need 0.054 GB to sort       453359 kmers
+Used 0.460 GB / 61.196 GB to store     52358898 kmers; need 0.080 GB to sort       670270 kmers
+Used 0.564 GB / 61.196 GB to store     79726971 kmers; need 0.111 GB to sort       932627 kmers
+Used 0.660 GB / 61.196 GB to store    104946906 kmers; need 0.143 GB to sort      1195810 kmers
+Used 0.755 GB / 61.196 GB to store    130168550 kmers; need 0.173 GB to sort      1449755 kmers
+Used 0.851 GB / 61.196 GB to store    155395719 kmers; need 0.203 GB to sort      1701228 kmers
+
+Input complete.  Writing results to '/scratch/aubsxp001/Week5_BIOL7800/work/merqury/reads.meryl', using 8 threads.
+finishIteration()--
+
+Finished counting.
+
+Cleaning up.
+
+Bye.
+
+Running Merqury on original assembly...
+read: reads.meryl
+
+No haplotype dbs provided.
+Running Merqury in non-trio mode...
+
+asm1: reference.fasta
+out : original
+
+
+Get spectra-cn plots and QV stats
+
+Running Merqury on polished assembly...
+read: reads.meryl
+
+No haplotype dbs provided.
+Running Merqury in non-trio mode...
+
+asm1: polished.fasta
+out : polished
+
+
+Get spectra-cn plots and QV stats
+
+Finished: 2026-09-19T17:36:15Z
+Exit_code: 0

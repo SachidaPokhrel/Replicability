@@ -1,0 +1,27 @@
+======================================================================
+Step:       06_checksums
+Started:    2026-09-19T17:36:15Z
+Host:       asaxlogin2
+Project:    /scratch/aubsxp001/Week5_BIOL7800
+Threads:    4
+======================================================================
+
+
+CHECKSUMS.txt:
+
+2274f03cbc221cd00f36764c964b99a70fd0674878d182f713f9837db43e7dff  input/reference.fasta
+6de536b326fd6863e04b0c78dc275751f32fee00699ac78623fb06b081f4afcc  input/reads_R1.fastq
+27afee3e81d10e37786e335a238ebc344dd7408fe812099ff0bb00870c2c955f  input/reads_R2.fastq
+f9c2deeaa482ab21e0ec3184764642a0b716553830f5f8a34500279cbd23471f  outputs/original.flagstat.txt
+28c1aabe00c5bfc6c325a92924d913eb81ae6473a47a9d0a2b3397719a6bec6d  outputs/original.mapping_metrics.tsv
+726824ab69a6539e6b29c6f99489c47b6cbb7214a35ef1daa060ecb32c67c838  outputs/original.merqury.completeness.stats
+803e95254233c644a1657cb26e46e695baf371f4034533960b0082d4aa6fffae  outputs/original.merqury.qv
+7c20d09fc082a4de495ad108df44e3eb846557fdd57c6c86f042e8c7824b67aa  outputs/polished.fasta
+f9c2deeaa482ab21e0ec3184764642a0b716553830f5f8a34500279cbd23471f  outputs/polished.flagstat.txt
+3ff230385b7853d97300451163f83b52abc4f228fdbdf530f2808174a1e2fa39  outputs/polished.mapping_metrics.tsv
+d0d3c9a97785158cc8c02ad58824f691da65b1171b9c933a8f3eb621dfca08ac  outputs/polished.merqury.completeness.stats
+16c1ca7f36479c96c8a5811e6914dbbd3f9f687983f16ae163fa3b9f2b3fa559  outputs/polished.merqury.qv
+27fa185d6481a7545e0519b487d9e532e937512e587edfd8e2a39a37d1c8d6ea  outputs/summary.csv
+
+Finished: 2026-09-19T17:36:16Z
+Exit_code: 0

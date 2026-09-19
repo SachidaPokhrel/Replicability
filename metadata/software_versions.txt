@@ -1,0 +1,31 @@
+Project=Bacillus subtilis BEST3145 reproducibility analysis
+Assembly_accession=GCA_019704475.1
+Nucleotide_accession=AP024628.1
+BioSample=SAMD00163116
+SRA_run=DRR172337
+SRA_spots_used=300000
+Merqury_k=21
+Threads=4
+
+===== fastq-dump =====
+
+fastq-dump : 3.2.1
+
+===== bwa =====
+Version: 0.7.19-r1273
+
+===== samtools =====
+samtools 1.22.1
+
+===== NextPolish =====
+nextPolish 1.4.1
+
+===== meryl =====
+meryl branch HEAD +0 changes (r977 5f3f1eb8c2392656d591a47a872c2efd3706e3ac)
+
+===== merqury =====
+Usage: merqury.sh <read-db.meryl> [<mat.meryl> <pat.meryl>] <asm1.fasta> [asm2.fasta] <out>
+	<read-db.meryl>	: k-mer counts of the read set
+	<mat.meryl>		: k-mer counts of the maternal haplotype (ex. mat.hapmer.meryl)
+	<pat.meryl>		: k-mer counts of the paternal haplotype (ex. pat.hapmer.meryl)
+	<asm1.fasta>	: Assembly fasta file (ex. pri.fasta, hap1.fasta or maternal.fasta)
