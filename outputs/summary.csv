@@ -1,0 +1,3 @@
+assembly,contigs,total_bp,N50_bp,longest_contig_bp,primary_mapped_pct,properly_paired_pct,mean_depth,breadth_1x_pct,merqury_QV,merqury_error_rate,merqury_completeness_pct
+original,1,4217110,4217110,4217110,99.52,99.17,39.254981,99.922791,51.4374,7.18218e-06,99.8997
+polished,1,4217111,4217111,4217111,99.52,99.17,39.254982,99.922791,51.4374,7.18218e-06,99.9001

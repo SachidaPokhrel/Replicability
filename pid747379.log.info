@@ -1,0 +1,150 @@
+[747379 INFO] 2026-09-19 15:04:04 NextPolish start...
+[747379 INFO] 2026-09-19 15:04:04 version:1.4.1 logfile:pid747379.log.info
+[747379 WARNING] 2026-09-19 15:04:04 Re-write workdir
+[747379 INFO] 2026-09-19 15:04:04 scheduled tasks:
+[1, 2, 1, 2]
+[747379 INFO] 2026-09-19 15:04:04 options: 
+[747379 INFO] 2026-09-19 15:04:04 
+rerun:                        3
+rewrite:                      1
+kill:                         None
+cleantmp:                     0
+use_drmaa:                    0
+deltmp:                       True
+submit:                       None
+job_type:                     local
+sgs_unpaired:                 0
+sgs_rm_nread:                 1
+lgs_read_type:                
+parallel_jobs:                1
+align_threads:                4
+check_alive:                  None
+task:                         [1, 2, 1, 2]
+job_id_regex:                 None
+sgs_max_depth:                100
+lgs_max_depth:                100
+multithread_jobs:             4
+lgs_max_read_len:             0
+hifi_max_depth:               100
+job_prefix:                   best3145
+genome_size:                  4217110
+polish_options:               -p 4
+lgs_block_size:               500M
+lgs_min_read_len:             1k
+hifi_max_read_len:            0
+hifi_block_size:              500M
+hifi_min_read_len:            1k
+sgs_use_duplicate_reads:      0
+sgs_block_size:               421711000.0
+lgs_minimap2_options:         -x map-ont
+hifi_minimap2_options:        -x map-pb
+sgs_align_options:            bwa mem -p  -t 4
+sgs_fofn:                     /scratch/aubsxp001/Week5_BIOL7800/work/sgs.fofn
+workdir:                      /scratch/aubsxp001/Week5_BIOL7800/work/nextpolish
+genome:                       /scratch/aubsxp001/Week5_BIOL7800/input/reference.fasta
+snp_phase:                    /scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/%02d.snp_phase
+snp_valid:                    /scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/%02d.snp_valid
+lgs_polish:                   /scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/%02d.lgs_polish
+kmer_count:                   /scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/%02d.kmer_count
+hifi_polish:                  /scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/%02d.hifi_polish
+score_chain:                  /scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/%02d.score_chain
+[747379 INFO] 2026-09-19 15:04:04 step 0 and task 1 start:
+[747379 INFO] 2026-09-19 15:04:09 Total jobs: 3
+[747379 INFO] 2026-09-19 15:04:09 Submitted jobID:[747420] jobCmd:[/scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/00.score_chain/01.db_split.sh.work/db_split1/best3145.sh] in the local_cycle.
+[747379 INFO] 2026-09-19 15:04:48 Submitted jobID:[747667] jobCmd:[/scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/00.score_chain/01.db_split.sh.work/db_split2/best3145.sh] in the local_cycle.
+[747379 INFO] 2026-09-19 15:04:49 Submitted jobID:[747679] jobCmd:[/scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/00.score_chain/01.db_split.sh.work/db_split3/best3145.sh] in the local_cycle.
+[747379 INFO] 2026-09-19 15:04:50 db_split done
+[747379 INFO] 2026-09-19 15:04:55 Total jobs: 1
+[747379 INFO] 2026-09-19 15:04:55 Submitted jobID:[747722] jobCmd:[/scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/00.score_chain/02.map.ref.sh.work/map_genome1/best3145.sh] in the local_cycle.
+[747379 INFO] 2026-09-19 15:05:09 align_genome done
+[747379 INFO] 2026-09-19 15:05:14 Total jobs: 1
+[747379 INFO] 2026-09-19 15:05:14 Submitted jobID:[747936] jobCmd:[/scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/00.score_chain/03.merge.bam.sh.work/merge_bam1/best3145.sh] in the local_cycle.
+[747379 INFO] 2026-09-19 15:05:19 merge_bam done
+[747379 INFO] 2026-09-19 15:05:19 remove temporary result: /scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/00.score_chain/02.map.ref.sh.work/map_genome1/sgs.part000.sort.bam
+[747379 INFO] 2026-09-19 15:05:24 Total jobs: 1
+[747379 INFO] 2026-09-19 15:05:24 Submitted jobID:[748017] jobCmd:[/scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/00.score_chain/04.polish.ref.sh.work/polish_genome1/best3145.sh] in the local_cycle.
+[747379 INFO] 2026-09-19 15:05:29 polish_genome done
+[747379 INFO] 2026-09-19 15:05:29 remove temporary result: /scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/00.score_chain/sgs.sort.bam
+[747379 INFO] 2026-09-19 15:05:29 step 1 and task 2 start:
+[747379 INFO] 2026-09-19 15:05:34 Total jobs: 1
+[747379 INFO] 2026-09-19 15:05:34 Submitted jobID:[748091] jobCmd:[/scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/01.kmer_count/01.merge.ref.sh.work/merge_ref1/merge_ref.sh] in the local_cycle.
+[747379 INFO] 2026-09-19 15:05:35 merge_ref done
+[747379 INFO] 2026-09-19 15:05:35 remove temporary result: /scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/00.score_chain/04.polish.ref.sh.work/polish_genome1/genome.nextpolish.part000.fasta
+[747379 INFO] 2026-09-19 15:05:40 Total jobs: 2
+[747379 INFO] 2026-09-19 15:05:40 Submitted jobID:[748135] jobCmd:[/scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/01.kmer_count/02.index.ref.sh.work/index_genome1/best3145.sh] in the local_cycle.
+[747379 INFO] 2026-09-19 15:05:42 Submitted jobID:[748147] jobCmd:[/scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/01.kmer_count/02.index.ref.sh.work/index_genome2/best3145.sh] in the local_cycle.
+[747379 INFO] 2026-09-19 15:05:43 index_genome done
+[747379 INFO] 2026-09-19 15:05:48 Total jobs: 1
+[747379 INFO] 2026-09-19 15:05:48 Submitted jobID:[748190] jobCmd:[/scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/01.kmer_count/03.map.ref.sh.work/map_genome1/best3145.sh] in the local_cycle.
+[747379 INFO] 2026-09-19 15:06:02 align_genome done
+[747379 INFO] 2026-09-19 15:06:07 Total jobs: 1
+[747379 INFO] 2026-09-19 15:06:07 Submitted jobID:[748379] jobCmd:[/scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/01.kmer_count/04.merge.bam.sh.work/merge_bam1/best3145.sh] in the local_cycle.
+[747379 INFO] 2026-09-19 15:06:12 merge_bam done
+[747379 INFO] 2026-09-19 15:06:12 remove temporary result: /scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/01.kmer_count/03.map.ref.sh.work/map_genome1/sgs.part000.sort.bam
+[747379 INFO] 2026-09-19 15:06:17 Total jobs: 1
+[747379 INFO] 2026-09-19 15:06:17 Submitted jobID:[748460] jobCmd:[/scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/01.kmer_count/05.polish.ref.sh.work/polish_genome1/best3145.sh] in the local_cycle.
+[747379 INFO] 2026-09-19 15:06:19 polish_genome done
+[747379 INFO] 2026-09-19 15:06:19 remove temporary result: /scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/01.kmer_count/sgs.sort.bam
+[747379 INFO] 2026-09-19 15:06:19 step 2 and task 1 start:
+[747379 INFO] 2026-09-19 15:06:24 Total jobs: 1
+[747379 INFO] 2026-09-19 15:06:24 Submitted jobID:[748516] jobCmd:[/scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/02.score_chain/01.merge.ref.sh.work/merge_ref1/merge_ref.sh] in the local_cycle.
+[747379 INFO] 2026-09-19 15:06:25 merge_ref done
+[747379 INFO] 2026-09-19 15:06:25 remove temporary result: /scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/01.kmer_count/05.polish.ref.sh.work/polish_genome1/genome.nextpolish.part000.fasta
+[747379 INFO] 2026-09-19 15:06:30 Total jobs: 2
+[747379 INFO] 2026-09-19 15:06:30 Submitted jobID:[748559] jobCmd:[/scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/02.score_chain/02.index.ref.sh.work/index_genome1/best3145.sh] in the local_cycle.
+[747379 INFO] 2026-09-19 15:06:32 Submitted jobID:[748571] jobCmd:[/scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/02.score_chain/02.index.ref.sh.work/index_genome2/best3145.sh] in the local_cycle.
+[747379 INFO] 2026-09-19 15:06:32 index_genome done
+[747379 INFO] 2026-09-19 15:06:37 Total jobs: 1
+[747379 INFO] 2026-09-19 15:06:37 Submitted jobID:[748614] jobCmd:[/scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/02.score_chain/03.map.ref.sh.work/map_genome1/best3145.sh] in the local_cycle.
+[747379 INFO] 2026-09-19 15:06:51 align_genome done
+[747379 INFO] 2026-09-19 15:06:56 Total jobs: 1
+[747379 INFO] 2026-09-19 15:06:56 Submitted jobID:[748804] jobCmd:[/scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/02.score_chain/04.merge.bam.sh.work/merge_bam1/best3145.sh] in the local_cycle.
+[747379 INFO] 2026-09-19 15:07:01 merge_bam done
+[747379 INFO] 2026-09-19 15:07:01 remove temporary result: /scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/02.score_chain/03.map.ref.sh.work/map_genome1/sgs.part000.sort.bam
+[747379 INFO] 2026-09-19 15:07:06 Total jobs: 1
+[747379 INFO] 2026-09-19 15:07:06 Submitted jobID:[748885] jobCmd:[/scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/02.score_chain/05.polish.ref.sh.work/polish_genome1/best3145.sh] in the local_cycle.
+[747379 INFO] 2026-09-19 15:07:12 polish_genome done
+[747379 INFO] 2026-09-19 15:07:12 remove temporary result: /scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/02.score_chain/sgs.sort.bam
+[747379 INFO] 2026-09-19 15:07:12 step 3 and task 2 start:
+[747379 INFO] 2026-09-19 15:07:17 Total jobs: 1
+[747379 INFO] 2026-09-19 15:07:17 Submitted jobID:[748959] jobCmd:[/scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/03.kmer_count/01.merge.ref.sh.work/merge_ref1/merge_ref.sh] in the local_cycle.
+[747379 INFO] 2026-09-19 15:07:18 merge_ref done
+[747379 INFO] 2026-09-19 15:07:18 remove temporary result: /scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/02.score_chain/05.polish.ref.sh.work/polish_genome1/genome.nextpolish.part000.fasta
+[747379 INFO] 2026-09-19 15:07:23 Total jobs: 2
+[747379 INFO] 2026-09-19 15:07:23 Submitted jobID:[749002] jobCmd:[/scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/03.kmer_count/02.index.ref.sh.work/index_genome1/best3145.sh] in the local_cycle.
+[747379 INFO] 2026-09-19 15:07:24 Submitted jobID:[749014] jobCmd:[/scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/03.kmer_count/02.index.ref.sh.work/index_genome2/best3145.sh] in the local_cycle.
+[747379 INFO] 2026-09-19 15:07:25 index_genome done
+[747379 INFO] 2026-09-19 15:07:30 Total jobs: 1
+[747379 INFO] 2026-09-19 15:07:30 Submitted jobID:[749057] jobCmd:[/scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/03.kmer_count/03.map.ref.sh.work/map_genome1/best3145.sh] in the local_cycle.
+[747379 INFO] 2026-09-19 15:07:44 align_genome done
+[747379 INFO] 2026-09-19 15:07:49 Total jobs: 1
+[747379 INFO] 2026-09-19 15:07:49 Submitted jobID:[749246] jobCmd:[/scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/03.kmer_count/04.merge.bam.sh.work/merge_bam1/best3145.sh] in the local_cycle.
+[747379 INFO] 2026-09-19 15:07:54 merge_bam done
+[747379 INFO] 2026-09-19 15:07:54 remove temporary result: /scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/03.kmer_count/03.map.ref.sh.work/map_genome1/sgs.part000.sort.bam
+[747379 INFO] 2026-09-19 15:07:59 Total jobs: 1
+[747379 INFO] 2026-09-19 15:07:59 Submitted jobID:[749329] jobCmd:[/scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/03.kmer_count/05.polish.ref.sh.work/polish_genome1/best3145.sh] in the local_cycle.
+[747379 INFO] 2026-09-19 15:08:01 polish_genome done
+[747379 INFO] 2026-09-19 15:08:01 remove temporary result: /scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/03.kmer_count/sgs.sort.bam
+[747379 INFO] 2026-09-19 15:08:02 nextPolish has finished
+[747379 INFO] 2026-09-19 15:08:02 final polished genome files:
+[747379 INFO] 2026-09-19 15:08:02 [35m /scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/genome.nextpolish.fasta [0m
+[747379 INFO] 2026-09-19 15:08:02 final stat file:
+[747379 INFO] 2026-09-19 15:08:02 [35m /scratch/aubsxp001/Week5_BIOL7800/work/nextpolish/genome.nextpolish.fasta.stat [0m
+[747379 INFO] 2026-09-19 15:08:02 asm stat:
+[747379 INFO] 2026-09-19 15:08:02 
+Type           Length (bp)            Count (#)
+N10              4217111                   1
+N20              4217111                   1
+N30              4217111                   1
+N40              4217111                   1
+N50              4217111                   1
+N60              4217111                   1
+N70              4217111                   1
+N80              4217111                   1
+N90              4217111                   1
+
+Min.             4217111                   -
+Max.             4217111                   -
+Ave.             4217111                   -
+Total            4217111                   1
+
