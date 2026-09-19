@@ -684,44 +684,6 @@ The `outputs/` directory should remain available for the scientific outputs requ
 
 ---
 
-# Box submission
-
-After completing the canonical analysis:
-
-1. Push the repository to a public GitHub repository.
-
-2. Put the public GitHub URL in:
-
-   ```text
-   GITHUB_REPO.txt
-   ```
-
-3. Run:
-
-   ```bash
-   bash prepare_box.sh
-   ```
-
-4. This creates:
-
-   ```text
-   box_submission/
-   ├── GITHUB_REPO.txt
-   ├── CHECKSUMS.txt
-   └── outputs/
-   ```
-
-5. Upload:
-
-   ```text
-   box_submission/
-   ```
-
-   to the Week 5 Box folder.
-
-The raw public sequence data are not included in either the GitHub repository or the Box package.
-
----
 
 # Reproducibility design
 
