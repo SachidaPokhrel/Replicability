@@ -1,194 +1,88 @@
-# Week 5 Reproducibility: short-read polishing of *Bacillus subtilis* BEST3145
+# Week 5 Reproducibility: Short-read polishing of *Bacillus subtilis* BEST3145
 
-This repository reproduces a small downstream genome-polishing analysis using a public complete genome and public Illumina reads from the **same BioSample**.
+## Introduction
 
-The project is designed so that a Linux Bash user can reproduce the analysis without already having Conda installed. The `setup_and_run.sh` script checks for Conda, installs a project-local Miniforge distribution when necessary, creates the required software environment, and then runs the complete analysis.
+Reproducibility is a central requirement of computational biology because an analysis should be repeatable by another researcher using the same input data, software environment, and commands. In practice, this requires more than providing a list of commands. A reproducible workflow should document the origin of the data, the software versions and dependencies, the exact sequence of analytical steps, the expected outputs, and a method for verifying that independently generated results are identical.
 
----
+This project demonstrates a small, fully scripted genome-polishing workflow using publicly available bacterial genome data. The analysis uses a complete genome assembly and paired-end Illumina sequencing reads from the same deposited *Bacillus subtilis* BEST3145 BioSample. The short reads are mapped to the original genome, used to polish the assembly with NextPolish, and then mapped again to the polished genome. Assembly quality before and after polishing is evaluated using read-mapping statistics and k-mer-based metrics from Meryl and Merqury.
 
-## Public data
-
-* Strain: *Bacillus subtilis* BEST3145
-* Assembly: `GCA_019704475.1`
-* Complete chromosome: `AP024628.1`
-* BioSample: `SAMD00163116`
-* Paired-end Illumina run: `DRR172337`
-* BioProject: `PRJDB8028`
-
-The genome assembly and Illumina sequencing run are both linked to BioSample `SAMD00163116`, ensuring that the assembly and short reads represent the same deposited isolate.
-
-To keep the analysis small enough for the reproducibility exercise, the workflow uses the first **300,000 SRA spots** from `DRR172337`.
-
-The subset is generated automatically by the workflow. No raw FASTA or FASTQ data are committed to GitHub.
+Long-read assembly, Porechop, Flye, and Medaka are intentionally excluded so that the workflow remains computationally small enough for the Week 5 reproducibility exercise.
 
 ---
 
-# What the analysis does
+## Objective
 
-The workflow performs the following steps:
+The objective of this project is to create a computational genome-polishing analysis that can be reproduced from start to finish by another Linux Bash user using only the files provided in the GitHub repository and publicly available sequence data.
 
-1. Downloads chromosome `AP024628.1` into:
+Specifically, the workflow is designed to:
 
-   ```text
-   input/reference.fasta
-   ```
-
-2. Retrieves the first 300,000 paired Illumina spots from `DRR172337` and creates:
-
-   ```text
-   input/reads_R1.fastq
-   input/reads_R2.fastq
-   ```
-
-3. Maps the Illumina reads to the original public genome using BWA and SAMtools.
-
-4. Calculates mapping statistics including:
-
-   * total reads
-   * primary mapping percentage
-   * properly paired percentage
-   * mean sequencing depth
-   * breadth of coverage at ≥1×
-
-5. Polishes the original genome with NextPolish using only the Illumina reads:
-
-   ```text
-   task = 1212
-   ```
-
-6. Maps the exact same Illumina reads to the polished assembly.
-
-7. Evaluates both the original and polished assemblies using Meryl and Merqury with:
-
-   ```text
-   k = 21
-   ```
-
-8. Creates a combined summary table:
-
-   ```text
-   outputs/summary.csv
-   ```
-
-9. Calculates SHA-256 checksums for:
-
-   * all three input data files actually used in the analysis
-   * every scientific output file
-
-   and writes them to:
-
-   ```text
-   CHECKSUMS.txt
-   ```
-
-Long-read assembly, Flye, Porechop, and Medaka are intentionally excluded to keep the analysis computationally small enough for this exercise.
+* retrieve public genome and sequencing data automatically;
+* ensure that the reference assembly and Illumina reads originate from the same deposited isolate;
+* map paired-end Illumina reads to the original assembly;
+* polish the assembly using NextPolish;
+* remap the same reads to the polished assembly;
+* compare the original and polished assemblies using mapping and k-mer-based quality metrics;
+* record all computational steps in individual log files;
+* create SHA-256 checksums for the input data and scientific outputs; and
+* allow an independent user to verify whether the analysis reproduces the same files byte for byte.
 
 ---
 
-# Requirements
+## Research Question
 
-The automated setup currently supports:
+**Does short-read polishing with NextPolish change measurable genome-quality metrics of the public *Bacillus subtilis* BEST3145 assembly when evaluated using the same paired-end Illumina reads before and after polishing?**
 
-```text
-Linux x86_64
-Linux aarch64
-```
+The analysis compares the original and polished assemblies using:
 
-The system should have:
+* primary read-mapping percentage;
+* properly paired percentage;
+* mean sequencing depth;
+* breadth of reference coverage;
+* assembly size and contiguity statistics;
+* Merqury QV;
+* estimated Merqury error rate; and
+* Merqury k-mer completeness.
 
-* Bash
-* internet access
-* either `curl` or `wget`
-* `sha256sum`
-
-Administrator or `sudo` access is **not required**.
-
-All scientific software required by the analysis is installed through the Conda environment.
+The purpose of the project is not only to compare these metrics, but also to determine whether the complete computational workflow can be independently reproduced.
 
 ---
 
-# Recommended setup and run
+## Public Data
 
-The easiest and most reproducible way to execute the project is:
+The analysis uses publicly available data for *Bacillus subtilis* BEST3145:
+
+| Resource                | Accession                    |
+| ----------------------- | ---------------------------- |
+| Strain                  | *Bacillus subtilis* BEST3145 |
+| Assembly                | `GCA_019704475.1`            |
+| Complete chromosome     | `AP024628.1`                 |
+| BioSample               | `SAMD00163116`               |
+| Paired-end Illumina run | `DRR172337`                  |
+| BioProject              | `PRJDB8028`                  |
+
+The genome assembly and Illumina sequencing run are both associated with BioSample `SAMD00163116`, allowing the reference and short-read data to be treated as originating from the same deposited isolate.
+
+To keep the analysis small enough for the assignment, the workflow uses the first **300,000 SRA spots** from `DRR172337` rather than the complete sequencing run.
+
+The raw data are generated automatically and are not committed to GitHub.
+
+---
+
+# Methods
+
+## 1. Software Environment
+
+The workflow is designed for Linux systems using Bash.
+
+The primary command for reproducing the project is:
 
 ```bash
 bash setup_and_run.sh
 ```
 
-This is the primary command for the project.
+The setup script first checks whether Conda is available. If Conda is not installed, it downloads a pinned Miniforge installer, verifies the installer checksum, and installs Miniforge locally within the project directory without requiring administrator privileges. It then creates the `week5-best3145` Conda environment from `environment.yml` and executes the analysis script.
 
-`setup_and_run.sh` performs the following automatically:
-
-```text
-Check for Conda
-      ↓
-If Conda exists → use it
-      ↓
-If Conda is absent
-      ↓
-Download pinned Miniforge installer
-      ↓
-Verify installer SHA-256
-      ↓
-Install Miniforge locally
-      ↓
-Create week5-best3145 environment
-      ↓
-Run run.sh inside that environment
-      ↓
-Download public data
-      ↓
-Perform analysis
-      ↓
-Generate outputs
-      ↓
-Generate CHECKSUMS.txt
-```
-
-No manual `conda activate` step is required.
-
----
-
-# Local Miniforge installation
-
-If Conda is not already installed, `setup_and_run.sh` installs Miniforge locally inside the project directory:
-
-```text
-.miniforge/
-```
-
-The installer is temporarily stored under:
-
-```text
-.bootstrap/
-```
-
-The installation does not modify the system-wide software environment and does not require root privileges.
-
-Both directories should be excluded from GitHub:
-
-```text
-.miniforge/
-.bootstrap/
-```
-
----
-
-# Conda environment
-
-The required environment is defined in:
-
-```text
-environment.yml
-```
-
-The environment name is:
-
-```text
-week5-best3145
-```
-
-The environment contains the software needed for the workflow, including:
+The Conda environment includes the main external programs used in the analysis:
 
 * SRA Toolkit
 * BWA
@@ -196,223 +90,43 @@ The environment contains the software needed for the workflow, including:
 * NextPolish
 * Meryl
 * Merqury
-* supporting command-line utilities
 
-If the environment does not already exist, `setup_and_run.sh` automatically creates it with:
+The environment specification is stored in:
+
+```text
+environment.yml
+```
+
+Users who already have Conda installed may create the environment manually:
 
 ```bash
 conda env create -f environment.yml
-```
-
----
-
-# Manual setup
-
-Users who already have Conda and prefer to perform the setup manually can use:
-
-```bash
-conda env create -f environment.yml
-```
-
-Then:
-
-```bash
 conda activate week5-best3145
-```
-
-and run:
-
-```bash
 bash run.sh
 ```
 
-However, the recommended reproducible method is:
-
-```bash
-bash setup_and_run.sh
-```
-
-because it also handles systems where Conda is not already installed.
+However, `setup_and_run.sh` is the recommended entry point because it also supports users who do not already have Conda installed.
 
 ---
 
-# Recording the resolved environment
+## 2. Public Data Retrieval
 
-After the canonical analysis has been run successfully, the exact resolved Conda environment can also be recorded with:
-
-```bash
-conda env export --no-builds > environment.resolved.yml
-```
-
-If Miniforge was installed locally by the bootstrap script, the equivalent command is:
-
-```bash
-.miniforge/bin/conda env export \
-    -n week5-best3145 \
-    --no-builds \
-    > environment.resolved.yml
-```
-
-The resulting:
+The complete chromosome sequence `AP024628.1` is downloaded automatically and saved as:
 
 ```text
-environment.resolved.yml
+input/reference.fasta
 ```
 
-can be committed to GitHub as an additional record of the environment used for the canonical analysis.
-
----
-
-# Running the analysis manually
-
-If the Conda environment is already active:
-
-```bash
-bash run.sh
-```
-
-The workflow uses four threads by default.
-
-To change the number of threads:
-
-```bash
-THREADS=2 bash run.sh
-```
-
-For example:
-
-```bash
-THREADS=8 bash run.sh
-```
-
-When using the automated bootstrap:
-
-```bash
-THREADS=2 bash setup_and_run.sh
-```
-
-will pass the requested thread value to the analysis.
-
----
-
-# Pipeline stages
-
-The workflow is divided into seven logged stages:
+The first 300,000 spots from Illumina run `DRR172337` are retrieved using SRA Toolkit and split into paired FASTQ files:
 
 ```text
-00_fetch_data
-      ↓
-01_map_original
-      ↓
-02_nextpolish
-      ↓
-03_map_polished
-      ↓
-04_merqury
-      ↓
-05_summary
-      ↓
-06_checksums
+input/reads_R1.fastq
+input/reads_R2.fastq
 ```
 
-Each stage produces its own `.o` log file.
+The workflow verifies that the two FASTQ files contain the same number of read records before continuing.
 
----
-
-# Repository structure before running
-
-The GitHub repository should contain approximately:
-
-```text
-Week5_BIOL7800/
-├── setup_and_run.sh
-├── run.sh
-├── environment.yml
-├── verify.sh
-├── prepare_box.sh
-│
-├── README.md
-├── METHODS.md
-├── DATA_SOURCES.md
-├── GITHUB_REPO.txt
-├── .gitignore
-│
-└── outputs/
-    └── .gitkeep
-```
-
-Raw data are not included in the repository.
-
----
-
-# Repository structure after running
-
-After a successful run, the project will contain:
-
-```text
-Week5_BIOL7800/
-│
-├── input/
-│   ├── reference.fasta
-│   ├── reads_R1.fastq
-│   └── reads_R2.fastq
-│
-├── work/
-│   ├── BWA index files
-│   ├── BAM files
-│   ├── NextPolish intermediate files
-│   └── Merqury intermediate files
-│
-├── logs/
-│   ├── 00_fetch_data.o
-│   ├── 01_map_original.o
-│   ├── 02_nextpolish.o
-│   ├── 03_map_polished.o
-│   ├── 04_merqury.o
-│   ├── 05_summary.o
-│   └── 06_checksums.o
-│
-├── metadata/
-│   ├── software_versions.txt
-│   ├── bootstrap_environment.txt
-│   └── data_sources.tsv
-│
-├── outputs/
-│   ├── original.flagstat.txt
-│   ├── original.mapping_metrics.tsv
-│   ├── polished.fasta
-│   ├── polished.flagstat.txt
-│   ├── polished.mapping_metrics.tsv
-│   ├── original.merqury.qv
-│   ├── original.merqury.completeness.stats
-│   ├── polished.merqury.qv
-│   ├── polished.merqury.completeness.stats
-│   └── summary.csv
-│
-├── CHECKSUMS.txt
-│
-├── setup_and_run.sh
-├── run.sh
-├── environment.yml
-├── verify.sh
-├── prepare_box.sh
-├── README.md
-├── METHODS.md
-├── DATA_SOURCES.md
-└── GITHUB_REPO.txt
-```
-
----
-
-# Input directory
-
-All public data used by the analysis are automatically placed in:
-
-```text
-input/
-```
-
-The analysis uses exactly three input data files:
+The three files used as the input to the analysis are therefore:
 
 ```text
 input/reference.fasta
@@ -420,36 +134,143 @@ input/reads_R1.fastq
 input/reads_R2.fastq
 ```
 
-These files are generated automatically from public accession information.
-
-They should **not** be committed to GitHub.
+The input files are generated during the analysis and should not be committed to GitHub.
 
 ---
 
-# Intermediate files
+## 3. Mapping Illumina Reads to the Original Assembly
 
-Temporary and intermediate files are stored under:
+The original genome assembly is indexed using BWA.
+
+The paired-end Illumina reads are aligned to the original genome using:
 
 ```text
-work/
+bwa mem
 ```
 
-These include:
+The resulting alignments are sorted and indexed using SAMtools.
 
-* BWA indexes
-* sorted BAM files
-* BAM indexes
-* NextPolish working files
-* Meryl database files
-* Merqury intermediate files
+SAMtools is then used to calculate:
 
-These files are not required for the final submission and should normally be excluded from GitHub.
+* total number of reads;
+* primary mapped reads;
+* percentage of properly paired reads;
+* mean sequencing depth; and
+* percentage of reference positions covered by at least one read.
+
+The primary mapping results are written to:
+
+```text
+outputs/original.flagstat.txt
+outputs/original.mapping_metrics.tsv
+```
 
 ---
 
-# Log files
+## 4. Short-read Genome Polishing
 
-Each stage generates a separate log:
+The original genome is polished using NextPolish with only the paired-end Illumina reads.
+
+The workflow uses:
+
+```text
+task = 1212
+```
+
+which performs short-read polishing.
+
+The resulting polished genome is copied to:
+
+```text
+outputs/polished.fasta
+```
+
+The workflow intentionally does not perform long-read assembly or Medaka polishing.
+
+---
+
+## 5. Mapping Illumina Reads to the Polished Assembly
+
+The exact same Illumina reads used for the original assembly are mapped to the polished assembly using the same BWA and SAMtools procedure.
+
+This produces:
+
+```text
+outputs/polished.flagstat.txt
+outputs/polished.mapping_metrics.tsv
+```
+
+Using the same read set before and after polishing provides a direct comparison between the original and polished assemblies.
+
+---
+
+## 6. K-mer-based Assembly Evaluation
+
+Meryl is used to construct a k-mer database from the paired-end Illumina reads using:
+
+```text
+k = 21
+```
+
+The same Meryl database is then used by Merqury to evaluate both assemblies independently.
+
+For each assembly, Merqury reports:
+
+* quality value (QV);
+* estimated consensus error rate; and
+* k-mer completeness.
+
+The retained Merqury outputs are:
+
+```text
+outputs/original.merqury.qv
+outputs/original.merqury.completeness.stats
+
+outputs/polished.merqury.qv
+outputs/polished.merqury.completeness.stats
+```
+
+---
+
+## 7. Assembly Statistics and Final Summary
+
+Basic assembly statistics are calculated directly from the FASTA files, including:
+
+* number of contigs;
+* total assembly size;
+* N50;
+* longest contig.
+
+These statistics are combined with the mapping and Merqury metrics into:
+
+```text
+outputs/summary.csv
+```
+
+The table contains one row for the original assembly and one row for the polished assembly.
+
+The columns are:
+
+```text
+assembly
+contigs
+total_bp
+N50_bp
+longest_contig_bp
+primary_mapped_pct
+properly_paired_pct
+mean_depth
+breadth_1x_pct
+merqury_QV
+merqury_error_rate
+merqury_completeness_pct
+```
+
+---
+
+## 8. Logging
+
+Each major computational stage generates its own log file:
 
 ```text
 logs/00_fetch_data.o
@@ -461,26 +282,123 @@ logs/05_summary.o
 logs/06_checksums.o
 ```
 
-The logs record information such as:
+The logs record information including:
 
-* computational stage
-* start time
-* finish time
-* hostname
-* number of threads
-* stdout
-* stderr
-* exit code
+* computational stage;
+* start time;
+* finish time;
+* hostname;
+* number of threads;
+* standard output;
+* error output; and
+* exit status.
 
-These files are useful for troubleshooting and documenting execution.
-
-Logs are intentionally excluded from `CHECKSUMS.txt` because they contain timestamps and hostnames and therefore are not expected to be byte-identical across computers.
+Logs are useful for troubleshooting but are not included in the byte-for-byte reproducibility comparison because timestamps and hostnames differ across machines.
 
 ---
 
-# Scientific outputs
+## 9. SHA-256 Verification
 
-The expected scientific outputs are:
+At the end of the analysis, SHA-256 hashes are generated for the three input data files:
+
+```text
+input/reference.fasta
+input/reads_R1.fastq
+input/reads_R2.fastq
+```
+
+and for every scientific output file under:
+
+```text
+outputs/
+```
+
+The hashes are written to:
+
+```text
+CHECKSUMS.txt
+```
+
+This checksum file serves as the reference for testing whether an independently reproduced analysis generates byte-identical files.
+
+---
+
+# Running the Analysis
+
+## Recommended method
+
+From the repository directory:
+
+```bash
+bash setup_and_run.sh
+```
+
+This single command:
+
+1. checks for Conda;
+2. installs Miniforge locally if Conda is absent;
+3. verifies the Miniforge installer;
+4. creates the Conda environment;
+5. downloads the public data;
+6. performs the analysis;
+7. creates the scientific outputs;
+8. generates the logs; and
+9. generates `CHECKSUMS.txt`.
+
+No manual Conda activation is required.
+
+---
+
+## Thread control
+
+The workflow uses four threads by default.
+
+To use another number:
+
+```bash
+THREADS=2 bash setup_and_run.sh
+```
+
+or:
+
+```bash
+THREADS=8 bash setup_and_run.sh
+```
+
+---
+
+# Expected Workflow
+
+```text
+Public genome + public Illumina reads
+                │
+                ▼
+         00_fetch_data
+                │
+                ▼
+       01_map_original
+                │
+                ▼
+         02_nextpolish
+                │
+                ▼
+       03_map_polished
+                │
+                ▼
+          04_merqury
+                │
+                ▼
+          05_summary
+                │
+                ▼
+         06_checksums
+```
+
+---
+
+# Expected Outputs
+
+The main scientific outputs are:
 
 ```text
 outputs/original.flagstat.txt
@@ -500,96 +418,67 @@ outputs/polished.merqury.completeness.stats
 outputs/summary.csv
 ```
 
----
-
-# Summary table
-
-The main summary file is:
+The main comparison table is:
 
 ```text
 outputs/summary.csv
 ```
 
-It contains one row for:
+---
+
+# Repository Structure
+
+Before running the analysis:
 
 ```text
-original
+Week5_BIOL7800/
+├── setup_and_run.sh
+├── run.sh
+├── environment.yml
+├── verify.sh
+├── README.md
+├── METHODS.md
+├── DATA_SOURCES.md
+└── outputs/
+    └── .gitkeep
 ```
 
-and one row for:
+After running:
 
 ```text
-polished
+Week5_BIOL7800/
+├── input/
+├── work/
+├── logs/
+├── metadata/
+├── outputs/
+├── CHECKSUMS.txt
+├── setup_and_run.sh
+├── run.sh
+├── environment.yml
+├── verify.sh
+├── README.md
+├── METHODS.md
+└── DATA_SOURCES.md
 ```
-
-The table contains:
-
-```text
-assembly
-contigs
-total_bp
-N50_bp
-longest_contig_bp
-primary_mapped_pct
-properly_paired_pct
-mean_depth
-breadth_1x_pct
-merqury_QV
-merqury_error_rate
-merqury_completeness_pct
-```
-
-This allows direct comparison of the original public assembly with the NextPolish-corrected assembly.
 
 ---
 
-# Checksums
+# Reproducibility Verification
 
-At the end of the workflow:
-
-```text
-CHECKSUMS.txt
-```
-
-is automatically generated.
-
-It contains SHA-256 hashes for the three input data files:
-
-```text
-input/reference.fasta
-input/reads_R1.fastq
-input/reads_R2.fastq
-```
-
-and every scientific output under:
-
-```text
-outputs/
-```
-
-The checksum file provides the byte-level reference for the reproducibility test.
-
----
-
-# Reproducibility verification
-
-After completing the canonical run:
+After completing the analysis, verify the files using:
 
 ```bash
 bash verify.sh
 ```
 
-can be used to verify the generated files.
-
-Alternatively:
+or:
 
 ```bash
 sha256sum -c CHECKSUMS.txt
 ```
 
-can be run directly.
-
-Expected output should contain lines similar to:
+A successful verification should report:
 
 ```text
 input/reference.fasta: OK
@@ -603,107 +492,51 @@ outputs/polished.mapping_metrics.tsv: OK
 outputs/summary.csv: OK
 ```
 
-For a true independent reproducibility test, another user should:
+For an independent reproducibility test, another user should clone the repository, obtain the canonical `CHECKSUMS.txt`, and run:
 
-1. Clone the GitHub repository.
+```bash
+bash setup_and_run.sh
+```
 
-2. Obtain the canonical `CHECKSUMS.txt`.
-
-3. Run:
-
-   ```bash
-   bash setup_and_run.sh
-   ```
-
-4. Compare the regenerated files against the canonical checksums.
+The files generated on that machine can then be compared against the canonical SHA-256 hashes.
 
 ---
 
-# Starting from a fresh machine
+# Starting From a Fresh Linux Machine
 
-A new Linux user should be able to reproduce the project with:
+A user with no existing Conda installation should be able to reproduce the project using:
 
 ```bash
-git clone <https://github.com/SachidaPokhrel/Replicability>
+git clone https://github.com/SachidaPokhrel/Replicability
 
-cd Week5_BIOL7800
+cd Replicability
 
 bash setup_and_run.sh
 ```
 
-No pre-existing Conda installation is required.
+No administrator privileges or pre-existing Conda installation are required.
 
 ---
 
-# GitHub contents
+# Reproducibility Statement
 
-The GitHub repository should contain the reproducibility instructions and code, but not the raw public sequence data.
+This project is designed so that the complete analysis can be reconstructed from publicly available data and version-controlled code without distributing the raw sequence files themselves.
 
-Recommended files to commit include:
+Reproducibility is supported through:
 
-```text
-README.md
-METHODS.md
-DATA_SOURCES.md
+* publicly available input data;
+* explicit accession numbers;
+* matching assembly and short-read BioSample identity;
+* automated data retrieval;
+* automated software installation;
+* a Conda environment specification;
+* a single executable analysis script;
+* separate logs for every computational stage;
+* documented software and data provenance;
+* clearly defined scientific outputs; and
+* SHA-256 verification of both inputs and outputs.
 
-setup_and_run.sh
-run.sh
-verify.sh
-
-environment.yml
-environment.resolved.yml
-
-CHECKSUMS.txt
-
-outputs/
-```
-
-The raw and intermediate data should remain excluded.
-
----
-
-# Suggested `.gitignore`
-
-The repository should ignore:
-
-```text
-input/
-work/
-logs/
-metadata/
-
-.miniforge/
-.bootstrap/
-
-```
-
-The `outputs/` directory should remain available for the scientific outputs required by the assignment.
-
----
-
-
-# Reproducibility design
-
-This project is intended to satisfy the Week 5 reproducibility requirements by providing:
-
-* a small computational analysis
-* public input data
-* an assembly and Illumina dataset derived from the same BioSample
-* multiple external command-line programs
-* automated software installation
-* a Conda environment specification
-* ordered analysis steps
-* per-step logs
-* scientific output files
-* a README
-* a Methods description
-* documented data provenance
-* SHA-256 hashes of the data actually used
-* SHA-256 hashes of every scientific output
-* no raw sequencing data committed to GitHub
-* a one-command setup and execution workflow
-
-The primary command required to reproduce the analysis is:
+The primary command required to reproduce the project is:
 
 ```bash
 bash setup_and_run.sh
