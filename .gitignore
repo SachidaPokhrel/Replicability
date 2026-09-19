@@ -1,2 +1,23 @@
+# Public raw inputs are regenerated from accessions
 input/
+
+# Intermediate computational files
 work/
+
+# Machine-specific logs and metadata
+logs/
+metadata/
+
+# Local bootstrap / Conda installations
+.bootstrap/
+.miniforge/
+.conda-env/
+
+# Per-run checksum list; canonical CHECKSUMS.txt stays tracked
+CHECKSUMS.generated.txt
+
+# NextPolish or miscellaneous local logs
+pid*.log*
+
+# Local submission packaging
+box_submission/
